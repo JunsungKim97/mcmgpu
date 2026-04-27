@@ -1,0 +1,5 @@
+* @saadrahim @Rmalavally @amd-aakash @zhang2amd @jlgreathouse @samjwu @MathiasMagnus @LisaDelaney
+# Documentation files
+docs/* @ROCm/rocm-documentation
+*.md @ROCm/rocm-documentation
+*.rst @ROCm/rocm-documentation

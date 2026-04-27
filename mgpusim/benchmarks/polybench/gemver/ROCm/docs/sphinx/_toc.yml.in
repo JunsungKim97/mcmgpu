@@ -1,0 +1,122 @@
+# Anywhere {branch} is used, the branch name will be substituted.
+# These comments will also be removed.
+defaults:
+  numbered: False
+  maxdepth: 6
+root: index
+subtrees:
+- entries:
+  - file: what-is-rocm.md
+  - file: about/release-notes.md
+    title: Release notes
+    subtrees:
+    - entries:
+      - file: about/CHANGELOG.md
+        title: Changelog
+  - url: https://github.com/RadeonOpenCompute/ROCm/labels/Verified%20Issue
+    title: Known issues
+
+- caption: Install
+  entries:
+  - url: https://rocm.docs.amd.com/projects/install-on-linux/en/${branch}/
+    title: ROCm on Linux
+  - url: https://rocm.docs.amd.com/projects/install-on-windows/en/${branch}/
+    title: HIP SDK on Windows
+
+- caption: Supported configurations
+  entries:
+  - url: https://rocm.docs.amd.com/projects/install-on-linux/en/${branch}/reference/system-requirements.html
+    title: Linux
+  - url: https://rocm.docs.amd.com/projects/install-on-windows/en/${branch}/reference/system-requirements.html
+    title: Windows
+
+- caption: Reference
+  entries:
+    - file: reference/library-index.md
+      title: API libraries & tools
+
+- caption: How-to
+  entries:
+  - file: how-to/deep-learning-rocm.md
+    title: Deep learning
+  - file: how-to/gpu-enabled-mpi.rst
+    title: Using MPI
+  - file: how-to/system-debugging.md
+    title: Debugging
+  - file: how-to/tuning-guides.md
+    title: Tuning guides
+    subtrees:
+    - entries:
+      - file: how-to/tuning-guides/mi100.md
+        title: MI100
+      - file: how-to/tuning-guides/mi200.md
+        title: MI200
+      - file: how-to/tuning-guides/w6000-v620.md
+        title: RDNA2
+  - url: https://github.com/amd/rocm-examples
+    title: GitHub examples
+
+- caption: Conceptual
+  entries:
+  - file: conceptual/gpu-arch.md
+    title: GPU architectures
+    subtrees:
+    - entries:
+      - file: conceptual/gpu-arch/mi250.md
+        title: MI250 microarchitecture
+        subtrees:
+        - entries:
+          - url: https://www.amd.com/system/files/TechDocs/instinct-mi200-cdna2-instruction-set-architecture.pdf
+            title: AMD Instinct MI200/CDNA2 ISA
+          - url: https://www.amd.com/system/files/documents/amd-cdna2-white-paper.pdf
+            title: White paper
+          - file: conceptual/gpu-arch/mi200-performance-counters.md
+            title: Performance counter
+      - file: conceptual/gpu-arch/mi100.md
+        title: MI100 microarchitecture
+        subtrees:
+        - entries:
+          - url: https://www.amd.com/system/files/TechDocs/instinct-mi100-cdna1-shader-instruction-set-architecture%C2%A0.pdf
+            title: AMD Instinct MI100/CDNA1 ISA
+          - url: https://www.amd.com/system/files/documents/amd-cdna-whitepaper.pdf
+            title: White paper
+  - file: conceptual/gpu-memory.md
+    title: GPU memory
+  - file: conceptual/compiler-disambiguation.md
+    title: Compiler disambiguation
+  - file: about/compatibility/openmp.md
+    title: OpenMP
+  - file: conceptual/file-reorg.md
+    title: File structure (Linux FHS)
+  - file: conceptual/gpu-isolation.md
+    title: GPU isolation techniques
+  - file: conceptual/using-gpu-sanitizer.md
+    title: LLVM ASan
+  - file: conceptual/cmake-packages.rst
+    title: Using CMake
+  - file: conceptual/More-about-how-ROCm-uses-PCIe-Atomics.rst
+    title: ROCm & PCIe atomics
+  - file: conceptual/ai-pytorch-inception.md
+    title: Inception v3 with PyTorch
+  - file: conceptual/ai-migraphx-optimization.md
+    title: Inference optimization with MIGraphX
+
+- caption: Contribute
+  entries:
+  - file: contribute/index.md
+    title: Contribute to ROCm
+    subtrees:
+    - entries:
+      - file: contribute/contribute-docs.md
+        title: Contribute to ROCm docs
+        subtrees:
+        - entries:
+          - file: contribute/toolchain.md
+            title: Documentation tools
+          - file: contribute/building.md
+            title: Building documentation
+          - file: contribute/feedback.md
+            title: Provide feedback
+  - file: about/license.md
+    title: ROCm license
+
