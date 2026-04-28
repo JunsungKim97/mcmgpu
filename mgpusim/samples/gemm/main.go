@@ -9,7 +9,7 @@ import (
 
 var iFlag = flag.Int("num_i", 2048, "Dunno")
 var jFlag = flag.Int("num_j", 2048, "Dunno")
-var kFlag = flag.Int("num_k", 2048, "Dunno")
+var kFlag = flag.Int("num_k", 1024, "Dunno")
 
 // var iFlag = flag.Int("num_i", 16, "Dunno")
 // var jFlag = flag.Int("num_j", 16, "Dunno")

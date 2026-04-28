@@ -7,10 +7,10 @@ import (
 	"gitlab.com/akita/mgpusim/samples/runner"
 )
 
-var dataWidth = flag.Int("width", 512, "The dimension of the square matrix.")
-
 // 32MB
-// var dataWidth = flag.Int("width", 128, "The dimension of the square matrix.")
+// var dataWidth = flag.Int("width", 2048, "The dimension of the square matrix.")
+
+var dataWidth = flag.Int("width", 8192, "The dimension of the square matrix.")
 
 func main() {
 	flag.Parse()

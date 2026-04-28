@@ -9,8 +9,8 @@ import (
 	"gitlab.com/akita/mgpusim/samples/runner"
 )
 
-var niFlag = flag.Uint("ni", 64, "The height of the first matrix.")
-var njFlag = flag.Uint("nj", 64, "The height of the first matrix.")
+var niFlag = flag.Uint("ni", 128, "The height of the first matrix.")
+var njFlag = flag.Uint("nj", 128, "The height of the first matrix.")
 
 func main() {
 	flag.Parse()

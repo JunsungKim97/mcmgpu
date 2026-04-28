@@ -44,6 +44,7 @@ type Builder interface {
 	CalculateMemoryParameters()
 	WithLog2PageSize(uint64)
 	WithLog2CacheLineSize(uint64)
+	WithLog2SectorSize(uint64) // junsung sector cache
 	WithPageTable(*device.PageTableImpl)
 	WithAlg(string)
 	WithSchedulingPartition(string)
@@ -67,6 +68,7 @@ type CommonBuilder struct {
 	memoryPerBank                  uint64
 	log2PageSize                   uint64
 	log2CacheLineSize              uint64
+	log2SectorSize                 uint64 // junsung sector cache
 	log2MemoryBankInterleavingSize uint64
 	remoteTLBInterleavingSize      uint64
 	pageTable                      *device.PageTableImpl
@@ -126,6 +128,7 @@ func (b *CommonBuilder) SetDefaultCommonBuilderParams() {
 	b.numMemoryBankPerChiplet = 8
 	b.memGroupSize = 1
 	b.log2CacheLineSize = 6
+	b.log2SectorSize = 6 // junsung sector cache
 	b.log2PageSize = 12
 	b.log2MemoryBankInterleavingSize = 12
 
@@ -236,6 +239,10 @@ func (b *CommonBuilder) WithLog2CacheLineSize(
 ) {
 	b.log2CacheLineSize = log2CacheLine
 }
+
+func (b *CommonBuilder) WithLog2SectorSize(log2Sector uint64) { // junsung sector cache
+	b.log2SectorSize = log2Sector // junsung sector cache
+} // junsung sector cache
 
 // WithLog2PageSize sets the page size with the power of 2.
 func (b *CommonBuilder) WithLog2PageSize(log2PageSize uint64) {
@@ -405,6 +412,7 @@ func (b *CommonBuilder) buildMemBanks(chiplet *Chiplet) {
 		WithEngine(b.engine).
 		WithFreq(b.freq).
 		WithLog2BlockSize(b.log2CacheLineSize).
+		WithLog2SectorSize(b.log2SectorSize). // junsung sector cache
 		WithWayAssociativity(16).
 		WithByteSize(256 * mem.KB).
 		WithNumMSHREntry(64).
@@ -453,6 +461,7 @@ func (b *CommonBuilder) buildXCDCache(chiplet *Chiplet) {
 		WithEngine(b.engine).
 		WithFreq(b.freq).
 		WithLog2BlockSize(b.log2CacheLineSize).
+		WithLog2SectorSize(b.log2SectorSize). // junsung sector cache
 		WithWayAssociativity(16).
 		// WithByteSize(256 * mem.KB).
 		WithByteSize(4 * mem.MB).

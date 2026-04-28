@@ -1,7 +1,11 @@
 #!/bin/bash
 
-mkdir benchsizeup_260426;
+mkdir with_sector_cache_260428;
 
+printf "*\n" > with_sector_cache_260428/.gitignore
 
-cp -r ../mgpusim/samples benchsizeup_260426/
+cp -r ../mgpusim/samples with_sector_cache_260428/
+
+# cp -r ../mgpusim/samples with_sector_cache_260428/
+
 

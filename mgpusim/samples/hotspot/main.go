@@ -7,8 +7,12 @@ import (
 	"gitlab.com/akita/mgpusim/samples/runner"
 )
 
-var rows = flag.Int("rows", 1024, "Number of grid rows")
-var cols = flag.Int("cols", 1024, "Number of grid cols")
+var rows = flag.Int("rows", 2048, "Number of grid rows")
+var cols = flag.Int("cols", 2048, "Number of grid cols")
+
+// 12MB
+// var rows = flag.Int("rows", 1024, "Number of grid rows")
+// var cols = flag.Int("cols", 1024, "Number of grid cols")
 
 // var rows = flag.Int("rows", 256, "Number of grid rows")
 // var cols = flag.Int("cols", 256, "Number of grid cols")

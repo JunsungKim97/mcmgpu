@@ -7,10 +7,10 @@ import (
 	"gitlab.com/akita/mgpusim/samples/runner"
 )
 
-var length = flag.Int("length", 67108864, "The length of the array that will be transformed")
+var length = flag.Int("length", 33554432, "The length of the array that will be transformed")
 
 // 32MB
-// var length = flag.Int("length", 16777216, "The length of the array that will be transformed")
+// var length = flag.Int("length", 8388608, "The length of the array that will be transformed")
 
 func main() {
 	flag.Parse()

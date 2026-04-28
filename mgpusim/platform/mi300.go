@@ -23,6 +23,7 @@ func MakeMI300GPUPlatformBuilder() MI300GPUPlatformBuilder {
 			numGPU:                   1,
 			log2PageSize:             uint64(12),
 			log2CacheLineSize:        uint64(7), //junsung "2026-04-27" default 64B cache line
+			log2SectorSize:           uint64(5), // junsung sector cache
 			numCUPerShaderArray:      uint64(4),
 			numShaderArrayPerChiplet: uint64(8),
 			numMemoryBankPerChiplet:  uint64(16),
@@ -64,6 +65,9 @@ func (b *MI300GPUPlatformBuilder) createGPUBuilder(
 	if b.memGroupSize == 0 {
 		panic("mi300 mem-group-size must be >= 1")
 	}
+	if b.log2SectorSize > b.log2CacheLineSize { // junsung sector cache
+		panic(fmt.Sprintf("mi300 log2-sector-size (%d) must be <= log2-cacheline-size (%d)", b.log2SectorSize, b.log2CacheLineSize)) // junsung sector cache
+	} // junsung sector cache
 	if b.numChiplets%b.memGroupSize != 0 {
 		panic(fmt.Sprintf("mi300 mem-group-size (%d) must divide num-chiplets (%d)", b.memGroupSize, b.numChiplets))
 	}
@@ -81,6 +85,7 @@ func (b *MI300GPUPlatformBuilder) createGPUBuilder(
 	gpuBuilder.WithLog2PageSize(b.log2PageSize)
 	//junsung "2026-04-27" propagate platform cacheline size to MI300 builder/cache hierarchy
 	gpuBuilder.WithLog2CacheLineSize(b.log2CacheLineSize)
+	gpuBuilder.WithLog2SectorSize(b.log2SectorSize) // junsung sector cache
 	gpuBuilder.WithPageTable(gpuDriver.PageTable)
 	gpuBuilder.WithAlg(b.alg)
 	gpuBuilder.WithSchedulingPartition(b.partition)

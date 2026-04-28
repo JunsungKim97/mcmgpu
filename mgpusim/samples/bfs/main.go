@@ -13,7 +13,9 @@ var path = flag.String("load-graph", "", "Path to file from which graph to be lo
 	"Currently only supports text files.\nThe graph is considered directed and edges are "+
 	"needed to described in single \nwith format: <node from> <node to>. You can add comment "+
 	"preceded by #")
-var numNode = flag.Int("node", 524288, "The width of the matrix.")
+var numNode = flag.Int("node", 4194304, "The width of the matrix.")
+
+// var numNode = flag.Int("node", 524288, "The width of the matrix.") // 12MB
 var degree = flag.Int("degree", 3, "The height of the matrix.")
 var maxDepth = flag.Int("depth", 3, "The max depth to search, 0 means unlimited")
 

@@ -318,6 +318,7 @@ func (wb *writeBufferStage) processDataReadyRsp(
 
 func (wb *writeBufferStage) combineData(mshrEntry *cache.MSHREntry) {
 	mshrEntry.Block.DirtyMask = make([]bool, 1<<wb.cache.log2BlockSize)
+	ensureSectorMetadata(mshrEntry.Block, wb.cache.log2BlockSize, wb.cache.log2SectorSize) // junsung sector cache
 	for _, t := range mshrEntry.Requests {
 		trans := t.(*transaction)
 		if trans.read != nil {
@@ -334,7 +335,10 @@ func (wb *writeBufferStage) combineData(mshrEntry *cache.MSHREntry) {
 				mshrEntry.Block.DirtyMask[index] = true
 			}
 		}
+		markSectorsValid(mshrEntry.Block, offset, uint64(len(write.Data)), wb.cache.log2BlockSize, wb.cache.log2SectorSize) // junsung sector cache
+		markSectorsDirty(mshrEntry.Block, offset, uint64(len(write.Data)), wb.cache.log2BlockSize, wb.cache.log2SectorSize) // junsung sector cache
 	}
+	refreshLineDirtyFromSectors(mshrEntry.Block) // junsung sector cache
 }
 
 func (wb *writeBufferStage) findInflightFetchByFetchReadReqID(

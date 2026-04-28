@@ -49,7 +49,8 @@ func NewBenchmark(driver *driver.Driver) *Benchmark {
 	b.NThreadBlocks = 1024 // take from gups_kernel.cl
 	// b.NThreadBlocks = 128  // take from gups_kernel.cl
 	// b.TableSize = 1024 * b.ThreadBlockSize * b.NThreadBlocks
-	b.TableSize = 16384 * b.ThreadBlockSize * b.NThreadBlocks
+	// b.TableSize = 16384 * b.ThreadBlockSize * b.NThreadBlocks
+	b.TableSize = 8192 * b.ThreadBlockSize * b.NThreadBlocks
 
 	return b
 }

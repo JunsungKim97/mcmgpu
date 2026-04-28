@@ -96,6 +96,10 @@ func (ds *directoryStage) handleReadHit(
 	if block.IsLocked {
 		return false
 	}
+	_, offset := getCacheLineID(trans.read.Address, ds.cache.log2BlockSize) // junsung sector cache
+	if !sectorsValidForAccess(block, offset, trans.read.AccessByteSize, ds.cache.log2BlockSize, ds.cache.log2SectorSize) { // junsung sector cache
+		return ds.fetch(now, trans, block) // junsung sector cache
+	} // junsung sector cache
 
 	tracing.AddTaskStep(
 		tracing.MsgIDAtReceiver(trans.read, ds.cache),
@@ -185,6 +189,14 @@ func (ds *directoryStage) doWrite(
 
 	block := ds.cache.directory.Lookup(trans.write.PID, cachelineID)
 	if block != nil {
+		if block.IsLocked || block.ReadCount > 0 { // junsung sector cache
+			return false // junsung sector cache
+		} // junsung sector cache
+		_, offset := getCacheLineID(write.Address, ds.cache.log2BlockSize) // junsung sector cache
+		if !sectorsValidForAccess(block, offset, uint64(len(write.Data)), ds.cache.log2BlockSize, ds.cache.log2SectorSize) && // junsung sector cache
+			!ds.canCompleteWriteWithoutFetch(write) { // junsung sector cache
+			return ds.fetch(now, trans, block) // junsung sector cache
+		} // junsung sector cache
 		ok := ds.doWriteHit(trans, block)
 		if ok {
 			tracing.AddTaskStep(
@@ -391,6 +403,11 @@ func (ds *directoryStage) evict(
 	victim.PID = pid
 	victim.IsLocked = true
 	victim.IsDirty = false
+	ensureSectorMetadata(victim, ds.cache.log2BlockSize, ds.cache.log2SectorSize) // junsung sector cache
+	for i := range victim.SectorValid { // junsung sector cache
+		victim.SectorValid[i] = false // junsung sector cache
+		victim.SectorDirty[i] = false // junsung sector cache
+	} // junsung sector cache
 
 	//pipeline
 	ds.cache.lookupBuffer.Pop()
@@ -446,6 +463,7 @@ func (ds *directoryStage) fetch(
 	block.Tag = cacheLineID
 	block.PID = pid
 	block.IsValid = true
+	ensureSectorMetadata(block, ds.cache.log2BlockSize, ds.cache.log2SectorSize) // junsung sector cache
 	ds.cache.directory.Visit(block)
 
 	tracing.AddTaskStep(
@@ -484,6 +502,18 @@ func (ds *directoryStage) isWritingFullLine(write *mem.WriteReq) bool {
 
 	return true
 }
+
+func (ds *directoryStage) canCompleteWriteWithoutFetch(write *mem.WriteReq) bool { // junsung sector cache
+	if write.DirtyMask == nil { // junsung sector cache
+		return true // junsung sector cache
+	} // junsung sector cache
+	for _, dirty := range write.DirtyMask { // junsung sector cache
+		if !dirty { // junsung sector cache
+			return false // junsung sector cache
+		} // junsung sector cache
+	} // junsung sector cache
+	return true // junsung sector cache
+} // junsung sector cache
 
 func (ds *directoryStage) needEviction(victim *cache.Block) bool {
 	return victim.IsValid && victim.IsDirty

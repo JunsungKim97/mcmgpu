@@ -7,7 +7,7 @@ import (
 	"gitlab.com/akita/mgpusim/samples/runner"
 )
 
-var numNodes = flag.Int("node", 8192, "The number of nodes in the graph")
+var numNodes = flag.Int("node", 4096, "The number of nodes in the graph")
 
 // 3MB
 // var numNodes = flag.Int("node", 256, "The number of nodes in the graph")

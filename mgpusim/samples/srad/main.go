@@ -7,8 +7,12 @@ import (
 	"gitlab.com/akita/mgpusim/samples/runner"
 )
 
-var rows = flag.Int("rows", 8192, "image rows")
-var cols = flag.Int("cols", 8192, "image cols")
+// 안끝남
+// var rows = flag.Int("rows", 8192, "image rows")
+// var cols = flag.Int("cols", 8192, "image cols")
+
+var rows = flag.Int("rows", 4096, "image rows")
+var cols = flag.Int("cols", 4096, "image cols")
 
 // var rows = flag.Int("rows", 256, "image rows")
 // var cols = flag.Int("cols", 256, "image cols")

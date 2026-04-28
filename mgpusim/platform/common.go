@@ -27,6 +27,7 @@ type CommonPlatformBuilder struct {
 	numGPU                   int
 	log2PageSize             uint64
 	log2CacheLineSize        uint64
+	log2SectorSize           uint64 // junsung sector cache
 	disableProgressBar       bool
 	numChiplets              uint64
 	memGroupSize             uint64
@@ -50,6 +51,7 @@ func MakeCommonPlatformBuilder() CommonPlatformBuilder {
 		numGPU:                   1,
 		log2PageSize:             uint64(12),
 		log2CacheLineSize:        uint64(6),
+		log2SectorSize:           uint64(6), // junsung sector cache
 		numCUPerShaderArray:      uint64(4),
 		numShaderArrayPerChiplet: uint64(8),
 		numMemoryBankPerChiplet:  uint64(8),
@@ -106,6 +108,10 @@ func (b *CommonPlatformBuilder) WithLog2PageSize(n uint64) {
 func (b *CommonPlatformBuilder) WithLog2CacheLineSize(n uint64) {
 	b.log2CacheLineSize = n
 }
+
+func (b *CommonPlatformBuilder) WithLog2SectorSize(n uint64) { // junsung sector cache
+	b.log2SectorSize = n // junsung sector cache
+} // junsung sector cache
 
 // WithMemGroupSize sets how many memory dies are considered local per XCD group.
 func (b *CommonPlatformBuilder) WithMemGroupSize(n uint64) {

@@ -127,6 +127,8 @@ var log2PageSize = flag.Uint64("log2-page-size", 12,
 	"Specify the page size")
 var log2CacheLineSize = flag.Uint64("log2-cacheline-size", 6,
 	"Specify the cacheline size")
+var log2SectorSize = flag.Uint64("log2-sector-size", 6, // junsung sector cache
+	"Specify the sector size") // junsung sector cache
 var memGroupSize = flag.Uint64("mem-group-size", 1,
 	"Specify the number of memory dies treated as local per XCD group")
 var useCustomHSL = flag.Bool("use-custom-hsl", false,
@@ -748,6 +750,7 @@ func (r *Runner) buildTimingPlatform() {
 		b.WithMemAllocatorType(*memAllocatorType)
 		b.WithLog2PageSize(*log2PageSize)
 		b.WithLog2CacheLineSize(*log2CacheLineSize)
+		b.WithLog2SectorSize(*log2SectorSize) // junsung sector cache
 		r.Engine, r.GPUDriver = b.Build()
 	case "mcmgpu":
 		b := platform.MakeMCMGPUBuilder()

@@ -16,6 +16,7 @@ type Builder struct {
 	lowModuleFinder     cache.LowModuleFinder
 	wayAssociativity    int
 	log2BlockSize       uint64
+	log2SectorSize      uint64 // junsung sector cache
 	byteSize            uint64
 	numMSHREntry        int
 	numReqPerCycle      int
@@ -32,6 +33,7 @@ func MakeBuilder() Builder {
 		freq:                1 * akita.GHz,
 		wayAssociativity:    4,
 		log2BlockSize:       6,
+		log2SectorSize:      6, // junsung sector cache
 		byteSize:            512 * mem.KB,
 		numMSHREntry:        16,
 		numReqPerCycle:      1,
@@ -62,6 +64,11 @@ func (b Builder) WithLog2BlockSize(n uint64) Builder {
 	b.log2BlockSize = n
 	return b
 }
+
+func (b Builder) WithLog2SectorSize(n uint64) Builder { // junsung sector cache
+	b.log2SectorSize = n // junsung sector cache
+	return b // junsung sector cache
+} // junsung sector cache
 
 func (b Builder) WithNumMSHREntry(n int) Builder {
 	b.numMSHREntry = n
@@ -136,6 +143,7 @@ func (b *Builder) configureCache(cacheModule *Cache) {
 	storage := mem.NewStorage(b.byteSize)
 
 	cacheModule.log2BlockSize = b.log2BlockSize
+	cacheModule.log2SectorSize = b.log2SectorSize // junsung sector cache
 	cacheModule.numReqPerCycle = b.numReqPerCycle
 	cacheModule.directory = directory
 	cacheModule.mshr = mshr

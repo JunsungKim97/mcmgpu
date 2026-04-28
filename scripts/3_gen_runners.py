@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-configs = ['benchsizeup_260426']
+configs = ['with_sector_cache_260428']
 
 benchmarks = [
         'atax', #junsungbenchmark
@@ -62,7 +62,7 @@ for config in configs:
 
         # submit_file.write("-scheduling lasp ")
 
-        if config == 'benchsizeup_260426':
+        if config == 'with_sector_cache_260428':
             submit_file.write("-platform-type mi300 ")
             submit_file.write("-mem-group-size 2 ") # junsung
             submit_file.write("-log2-cacheline-size 7 ") # junsung
@@ -172,8 +172,8 @@ for config in configs:
         # set benchmark specific parameters
         if benchmark == 'convolution2d':
             submit_file.write("-ni=8192 -nj=8192 ")
-        if benchmark == 'fastwalshtransform':
-            submit_file.write("-length=8388608 ")
+        # if benchmark == 'fastwalshtransform':
+            # submit_file.write("-length=8388608 ")
         if benchmark == 'gups':
             submit_file.write(" ")
         if benchmark == 'jacobi1d':
@@ -182,8 +182,8 @@ for config in configs:
             submit_file.write("-n=4096 -steps=1")
         if benchmark == 'kmeans':
             submit_file.write("-points=524288 -features=32 -clusters=20 -max-iter=1 ")
-        if benchmark == 'matrixtranspose':
-            submit_file.write("-width=2048 ")
+        # if benchmark == 'matrixtranspose':
+            # submit_file.write("-width=2048 ")
         if benchmark == 'mis':
             submit_file.write("-numNodes=524288 -numItems=1048576 ")
         if benchmark == 'pagerank':
@@ -194,8 +194,8 @@ for config in configs:
             submit_file.write("-Size=67108864 -Iterations=2 ")
         if benchmark == 'spmv':
             submit_file.write("-dim=2097152 -sparsity=0.00001 ")
-        if benchmark == 'stencil2d':
-            submit_file.write("-row=2048 -col=2048 ")
+        # if benchmark == 'stencil2d':
+            # submit_file.write("-row=2048 -col=2048 ")
         if benchmark == 'syrk':
             submit_file.write("-ni=2048 -nj=2048 ")
         if benchmark == 'syr2k':

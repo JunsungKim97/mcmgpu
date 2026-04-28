@@ -7,7 +7,7 @@ import (
 	"gitlab.com/akita/mgpusim/samples/runner"
 )
 
-var dim = flag.Int("dim", 2048, "matrix dimension")
+var dim = flag.Int("dim", 1536, "matrix dimension")
 
 // 13MB
 // var dim = flag.Int("dim", 512, "matrix dimension")

@@ -64,6 +64,7 @@ type XCDCache struct {
 	directory       cache.Directory
 	mshr            cache.MSHR
 	log2BlockSize   uint64
+	log2SectorSize  uint64 // junsung sector cache
 	numReqPerCycle  int
 
 	state                cacheState

@@ -7,8 +7,11 @@ import (
 	"gitlab.com/akita/mgpusim/samples/runner"
 )
 
-var mFlag = flag.Int("num_m", 512, "Dunno")
-var nFlag = flag.Int("num_n", 512, "Dunno")
+var mFlag = flag.Int("num_m", 256, "Dunno")
+var nFlag = flag.Int("num_n", 256, "Dunno")
+
+// var mFlag = flag.Int("num_m", 512, "Dunno")
+// var nFlag = flag.Int("num_n", 512, "Dunno")
 
 func main() {
 	flag.Parse()

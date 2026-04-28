@@ -7,8 +7,12 @@ import (
 	"gitlab.com/akita/mgpusim/samples/runner"
 )
 
-var NumNodes = flag.Int("numNodes", 512, "The number of rows in the input matrix.")
-var NumItems = flag.Int("numItems", 256, "The number of rows in the input matrix.")
+// 16MB
+// var NumNodes = flag.Int("numNodes", 512, "The number of rows in the input matrix.")
+// var NumItems = flag.Int("numItems", 256, "The number of rows in the input matrix.")
+
+var NumNodes = flag.Int("numNodes", 4096, "The number of rows in the input matrix.")
+var NumItems = flag.Int("numItems", 2048, "The number of rows in the input matrix.")
 
 // var NumNodes = flag.Int("numNodes", 256, "The number of rows in the input matrix.")
 // var NumItems = flag.Int("numItems", 128, "The number of rows in the input matrix.")

@@ -99,6 +99,7 @@ func (s *bankStage) finalizeReadHit(now akita.VTimeInSec) bool {
 
 	s.currentTrans = nil
 	block.ReadCount--
+	markSectorsValid(block, offset, read.AccessByteSize, s.cache.log2BlockSize, s.cache.log2SectorSize) // junsung sector cache
 
 	dataReadyRspBuilder := mem.DataReadyRspBuilder{}.
 		WithSendTime(now).
@@ -159,7 +160,9 @@ func (s *bankStage) finalizeWriteHit(now akita.VTimeInSec) bool {
 
 	block.IsValid = true
 	block.IsLocked = false
-	block.IsDirty = true
+	markSectorsValid(block, offset, uint64(len(write.Data)), s.cache.log2BlockSize, s.cache.log2SectorSize) // junsung sector cache
+	markSectorsDirty(block, offset, uint64(len(write.Data)), s.cache.log2BlockSize, s.cache.log2SectorSize) // junsung sector cache
+	refreshLineDirtyFromSectors(block) // junsung sector cache
 	block.DirtyMask = dirtyMask
 
 	s.removeTransaction(s.currentTrans)
@@ -191,6 +194,7 @@ func (s *bankStage) finalizeBankWriteFetched(now akita.VTimeInSec) bool {
 	s.cache.storage.Write(block.CacheAddress, mshrEntry.Data)
 	block.IsLocked = false
 	block.IsValid = true
+	markAllSectorsValid(block, s.cache.log2BlockSize, s.cache.log2SectorSize) // junsung sector cache
 
 	s.currentTrans = nil
 

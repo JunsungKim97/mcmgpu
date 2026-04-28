@@ -8,7 +8,7 @@ import (
 )
 
 var numIter = flag.Int("iter", 8, "The number of iterations to run.")
-var particles = flag.Int("particles", 65536, "The number of particles in the body.")
+var particles = flag.Int("particles", 32768, "The number of particles in the body.")
 
 func main() {
 	flag.Parse()

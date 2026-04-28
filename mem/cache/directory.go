@@ -14,6 +14,8 @@ type Block struct {
 	ReadCount    int
 	IsLocked     bool
 	DirtyMask    []bool
+	SectorValid  []bool // junsung sector cache
+	SectorDirty  []bool // junsung sector cache
 }
 
 // A Set is a list of blocks where a certain piece memory can be stored at
